@@ -11,13 +11,31 @@
   <link rel="stylesheet" href="{{ asset('hokcup/css/admin.css') }}">
 </head>
 <body>
+@php
+  $adminSetting = \App\Models\SiteSetting::query()->first();
+  $adminBrandName = $adminSetting?->site_name ?: 'Hok Cup';
+  $adminBrandTagline = $adminSetting?->brand_tagline ?: 'Landing page & katalog';
+  $adminLogo = $adminSetting?->logo_url;
+  $adminInitials = collect(explode(' ', trim($adminBrandName)))
+      ->filter()
+      ->take(2)
+      ->map(fn ($word) => mb_substr($word, 0, 1))
+      ->implode('');
+  $adminInitials = strtoupper($adminInitials ?: 'HC');
+@endphp
   <div class="admin-shell">
     <aside class="sidebar" id="adminSidebar">
       <div class="sidebar-head">
-        <div class="brand-mark">HC</div>
+        <div class="brand-mark {{ $adminLogo ? 'image' : '' }}">
+          @if($adminLogo)
+            <img src="{{ $adminLogo }}" alt="{{ $adminBrandName }} CMS Logo">
+          @else
+            {{ $adminInitials }}
+          @endif
+        </div>
         <div>
-          <div class="brand">Hok Cup CMS</div>
-          <div class="brand-sub">Landing page & katalog</div>
+          <div class="brand">{{ $adminBrandName }} CMS</div>
+          <div class="brand-sub">{{ $adminBrandTagline }}</div>
         </div>
       </div>
 
@@ -55,7 +73,16 @@
     <main class="main">
       <div class="mobile-topbar">
         <button class="icon-btn" type="button" onclick="toggleAdminSidebar(true)" aria-label="Buka menu admin"><i class="fas fa-bars"></i></button>
-        <strong>Hok Cup CMS</strong>
+        <div class="mobile-brand">
+          <div class="brand-mark mobile-brand-mark {{ $adminLogo ? 'image' : '' }}">
+            @if($adminLogo)
+              <img src="{{ $adminLogo }}" alt="{{ $adminBrandName }} CMS Logo">
+            @else
+              {{ $adminInitials }}
+            @endif
+          </div>
+          <strong>{{ $adminBrandName }} CMS</strong>
+        </div>
         <a class="icon-btn" href="{{ route('home') }}" target="_blank" aria-label="Lihat website"><i class="fas fa-globe"></i></a>
       </div>
 
