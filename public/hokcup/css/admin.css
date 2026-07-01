@@ -63,3 +63,119 @@ a{text-decoration:none;color:inherit}button,input,textarea,select{font:inherit}i
 .mobile-brand-mark.image img {
   padding: 4px;
 }
+
+/* Revisi 6: Artisan command dari CMS */
+.command-grid .card {
+  margin-bottom: 0;
+}
+
+.command-card {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+}
+
+.command-icon {
+  width: 54px;
+  height: 54px;
+  border-radius: 18px;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(135deg,var(--red),#fb3a24);
+  color: #fff;
+  font-size: 20px;
+  box-shadow: 0 16px 34px rgba(215,25,32,.18);
+  margin-bottom: 14px;
+}
+
+.command-card h3 {
+  margin-bottom: 8px;
+}
+
+.command-warning {
+  margin: 14px 0 18px;
+  padding: 12px 13px;
+  border-radius: 16px;
+  background: #fff8e7;
+  border: 1px solid #f1dfbd;
+  color: #68431b;
+  font-size: 12px;
+  line-height: 1.55;
+  font-weight: 800;
+}
+
+.command-card form {
+  margin-top: auto;
+}
+
+.command-card .btn {
+  width: 100%;
+}
+
+.command-output-card {
+  margin-top: 18px;
+}
+
+.terminal-output {
+  display: grid;
+  gap: 14px;
+}
+
+.command-result {
+  overflow: hidden;
+  border-radius: 18px;
+  border: 1px solid var(--line);
+  background: #160b0d;
+  color: #fff;
+}
+
+.command-result-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 13px 15px;
+  border-bottom: 1px solid rgba(255,255,255,.1);
+  background: rgba(255,255,255,.055);
+}
+
+.command-result-head strong {
+  font-size: 13px;
+  color: #fff;
+}
+
+.command-result-head span {
+  font-size: 12px;
+  font-weight: 900;
+  color: rgba(255,255,255,.68);
+  white-space: nowrap;
+}
+
+.command-result.is-success .command-result-head span {
+  color: #86efac;
+}
+
+.command-result.is-failed .command-result-head span {
+  color: #fca5a5;
+}
+
+.command-result pre {
+  margin: 0;
+  padding: 15px;
+  white-space: pre-wrap;
+  word-break: break-word;
+  color: rgba(255,255,255,.82);
+  font-size: 12px;
+  line-height: 1.65;
+  font-family: ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono",monospace;
+}
+
+@media(max-width:900px){
+  .command-result-head {
+    display: block;
+  }
+  .command-result-head span {
+    display: block;
+    margin-top: 6px;
+    white-space: normal;
+  }
+}

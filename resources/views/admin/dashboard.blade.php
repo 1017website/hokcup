@@ -74,6 +74,7 @@
       <a class="btn btn-light" href="{{ route('admin.site-settings.edit') }}"><i class="fab fa-whatsapp"></i> Nomor WA</a>
       <a class="btn btn-light" href="{{ route('admin.social-media-links.index') }}"><i class="fas fa-hashtag"></i> Sosial Media</a>
       <a class="btn btn-light" href="{{ route('admin.google-map.edit') }}"><i class="fas fa-map-location-dot"></i> Google Maps</a>
+      <a class="btn btn-light" href="{{ route('admin.commands.index') }}"><i class="fas fa-terminal"></i> Artisan Command</a>
     </div>
   </div>
 </div>

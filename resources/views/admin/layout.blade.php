@@ -47,6 +47,7 @@
       <a class="side-link @if(request()->routeIs('admin.analytics-ads.*')) active @endif" href="{{ route('admin.analytics-ads.edit') }}"><i class="fas fa-bullseye"></i> Tracking & Ads</a>
       <a class="side-link @if(request()->routeIs('admin.seo.*')) active @endif" href="{{ route('admin.seo.edit') }}"><i class="fas fa-magnifying-glass-chart"></i> SEO</a>
       <a class="side-link @if(request()->routeIs('admin.site-settings.*')) active @endif" href="{{ route('admin.site-settings.edit') }}"><i class="fas fa-gear"></i> Site Setting & WA</a>
+      <a class="side-link @if(request()->routeIs('admin.commands.*')) active @endif" href="{{ route('admin.commands.index') }}"><i class="fas fa-terminal"></i> Artisan Command</a>
 
       <div class="nav-title">Landing Page</div>
       <a class="side-link @if(request()->routeIs('admin.hero.*')) active @endif" href="{{ route('admin.hero.edit') }}"><i class="fas fa-wand-magic-sparkles"></i> Hero Section</a>

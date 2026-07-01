@@ -15,6 +15,7 @@ use App\Http\Controllers\Admin\SeoSettingController;
 use App\Http\Controllers\Admin\SocialMediaLinkController;
 use App\Http\Controllers\Admin\SocialWidgetController;
 use App\Http\Controllers\Admin\VisitorAnalyticsController;
+use App\Http\Controllers\Admin\MaintenanceCommandController;
 use App\Http\Controllers\Auth\AdminLoginController;
 use App\Http\Controllers\Frontend\HomeController;
 use Illuminate\Support\Facades\Route;
@@ -37,6 +38,8 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
     Route::get('/analytics', [VisitorAnalyticsController::class, 'index'])->name('analytics.index');
     Route::get('/analytics-ads', [AnalyticsAdsController::class, 'edit'])->name('analytics-ads.edit');
     Route::put('/analytics-ads', [AnalyticsAdsController::class, 'update'])->name('analytics-ads.update');
+    Route::get('/commands', [MaintenanceCommandController::class, 'index'])->name('commands.index');
+    Route::post('/commands/run', [MaintenanceCommandController::class, 'run'])->name('commands.run');
     Route::get('/hero', [HeroSectionController::class, 'edit'])->name('hero.edit');
     Route::put('/hero', [HeroSectionController::class, 'update'])->name('hero.update');
     Route::resource('categories', CategoryController::class)->except(['show']);
