@@ -146,7 +146,6 @@
             <span class="eyebrow"><i class="fas fa-layer-group"></i> Kategori Produk</span>
             <h2 class="title" style="margin-top:16px">Pilih Berdasarkan Kebutuhan</h2>
           </div>
-          <p class="lead">Kategori dibuat agar customer lebih cepat menemukan produk yang cocok: cup reguler, cup kekinian, cup printing, hingga aksesoris penutup.</p>
         </div>
         <div class="category-strip" id="categoryTiles"></div>
       </div>
@@ -197,7 +196,6 @@
             <span class="eyebrow"><i class="fas fa-medal"></i> Keunggulan</span>
             <h2 class="title" style="margin-top:16px">Kenapa Memilih {{ $siteName }}?</h2>
           </div>
-          <p class="lead">Bagian ini bisa dipakai untuk memperkuat trust sebelum customer masuk ke WhatsApp atau melakukan pemesanan.</p>
         </div>
         <div class="feature-grid">
           @foreach($features as $feature)
@@ -233,7 +231,6 @@
               <span class="eyebrow"><i class="fas fa-hashtag"></i> Sosial Media</span>
               <h2 class="title" style="margin-top:16px">Ikuti Update {{ $siteName }}</h2>
             </div>
-            <p class="lead">Hubungkan pengunjung ke channel sosial media resmi, marketplace, atau katalog online brand.</p>
           </div>
           <div class="social-link-grid">
             @foreach($socialLinks as $link)
@@ -393,7 +390,9 @@
       <div class="footer-grid">
         <div class="footer-col">
           <div class="footer-logo"><img src="{{ $siteSetting?->logo_url ?? '' }}" alt="{{ $siteName }}"><strong>{{ $siteName }}</strong></div>
-          <p>Template landing page katalog produk {{ $siteName }} dengan search, filter kategori, dan modal detail produk.</p>
+          @if($siteSetting?->brand_tagline)
+            <p>{{ $siteSetting->brand_tagline }}</p>
+          @endif
         </div>
         @foreach($footerLinks as $group => $links)
           <div class="footer-col"><h4>{{ $group }}</h4>
