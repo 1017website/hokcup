@@ -81,7 +81,6 @@
         <a href="#sosial-media">Sosial</a>
         <a href="#news">News</a>
         <a href="#karir">Karir</a>
-        <a href="#lokasi">Lokasi</a>
         <a href="#kontak">Kontak</a>
       </div>
       <div class="nav-actions">
@@ -99,7 +98,6 @@
     <a onclick="closeMobileMenu()" href="#sosial-media">Sosial Media</a>
     <a onclick="closeMobileMenu()" href="#news">News</a>
     <a onclick="closeMobileMenu()" href="#karir">Karir</a>
-    <a onclick="closeMobileMenu()" href="#lokasi">Google Maps</a>
     <a onclick="closeMobileMenu()" href="#kontak">Kontak</a>
     <a onclick="closeMobileMenu(); openSearch();" href="javascript:void(0)"><i class="fas fa-search"></i> Cari Produk</a>
   </div>
@@ -351,7 +349,8 @@
       </section>
     @endif
 
-    @if($googleMap)
+    {{-- Google Maps sementara disembunyikan. Aktifkan kembali dengan mengubah false menjadi true. --}}
+    @if(false && $googleMap)
       <section class="section map-section" id="lokasi">
         <div class="container">
           <div class="map-card">

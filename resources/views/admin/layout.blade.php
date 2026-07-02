@@ -60,7 +60,6 @@
       <a class="side-link @if(request()->routeIs('admin.about.*')) active @endif" href="{{ route('admin.about.edit') }}"><i class="fas fa-building"></i> Tentang</a>
       <a class="side-link @if(request()->routeIs('admin.social-widgets.*')) active @endif" href="{{ route('admin.social-widgets.index') }}"><i class="fas fa-star"></i> Social Proof</a>
       <a class="side-link @if(request()->routeIs('admin.social-media-links.*')) active @endif" href="{{ route('admin.social-media-links.index') }}"><i class="fas fa-hashtag"></i> Sosial Media</a>
-      <a class="side-link @if(request()->routeIs('admin.google-map.*')) active @endif" href="{{ route('admin.google-map.edit') }}"><i class="fas fa-map-location-dot"></i> Google Maps</a>
       <a class="side-link @if(request()->routeIs('admin.news.*')) active @endif" href="{{ route('admin.news.index') }}"><i class="fas fa-newspaper"></i> News</a>
       <a class="side-link @if(request()->routeIs('admin.careers.*')) active @endif" href="{{ route('admin.careers.index') }}"><i class="fas fa-briefcase"></i> Karir</a>
       <a class="side-link @if(request()->routeIs('admin.cta.*')) active @endif" href="{{ route('admin.cta.edit') }}"><i class="fas fa-bullhorn"></i> CTA</a>

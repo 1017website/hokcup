@@ -59,7 +59,6 @@
     <h3>Status Modul Frontend</h3>
     <div class="grid grid-2">
       <div class="status-item"><strong>Social Proof Widget</strong><span class="pill pill-green">{{ $socialWidgetCount }} Widget</span></div>
-      <div class="status-item"><strong>Google Maps</strong><span class="pill {{ $googleMapIsActive ? 'pill-green' : 'pill-red' }}">{{ $googleMapIsActive ? 'Aktif' : 'Nonaktif' }}</span></div>
       <div class="status-item"><strong>Keunggulan</strong><span class="pill pill-green">{{ $featureCount }} Item</span></div>
       <div class="status-item"><strong>CS WhatsApp</strong><span class="pill {{ $activeWhatsappCsCount > 0 ? 'pill-green' : 'pill-red' }}">{{ $activeWhatsappCsCount }} Aktif</span></div>
       <div class="status-item"><strong>User CMS</strong><span class="pill pill-green">{{ $userCount }} User</span></div>
@@ -75,7 +74,6 @@
       <a class="btn btn-light" href="{{ route('admin.products.index') }}"><i class="fas fa-box"></i> Kelola Produk</a>
       <a class="btn btn-light" href="{{ route('admin.whatsapp-cs.index') }}"><i class="fab fa-whatsapp"></i> CS WhatsApp</a>
       <a class="btn btn-light" href="{{ route('admin.social-media-links.index') }}"><i class="fas fa-hashtag"></i> Sosial Media</a>
-      <a class="btn btn-light" href="{{ route('admin.google-map.edit') }}"><i class="fas fa-map-location-dot"></i> Google Maps</a>
       <a class="btn btn-light" href="{{ route('admin.commands.index') }}"><i class="fas fa-terminal"></i> Artisan Command</a>
       <a class="btn btn-light" href="{{ route('admin.users.index') }}"><i class="fas fa-users-gear"></i> User CMS</a>
       <a class="btn btn-light" href="{{ route('admin.profile.password.edit') }}"><i class="fas fa-key"></i> Ubah Password</a>
