@@ -247,3 +247,39 @@
 .nav-links a{padding-left:9px;padding-right:9px}
 @media(max-width:1100px){.news-grid,.career-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:680px){.news-grid,.career-grid{grid-template-columns:1fr}.news-image{height:210px}.career-card,.news-card{border-radius:24px}.detail-page{padding-top:92px}.detail-article{padding:24px;border-radius:26px}.detail-article h1{font-size:38px}.detail-lead{font-size:15px}.detail-kicker{border-radius:18px;line-height:1.5}.career-actions .btn{width:100%}}
+
+/* REVISION 14: frontend empty state for News & Karir */
+.frontend-empty-state{
+  grid-column:1/-1;
+  background:#fff;
+  border:1px dashed #edc7a9;
+  border-radius:30px;
+  padding:42px 24px;
+  text-align:center;
+  color:var(--muted);
+  box-shadow:0 12px 34px rgba(50,20,20,.04);
+}
+.frontend-empty-state i{
+  width:58px;
+  height:58px;
+  margin:0 auto 14px;
+  border-radius:20px;
+  display:grid;
+  place-items:center;
+  background:linear-gradient(135deg,var(--red),#fb3a24);
+  color:#fff;
+  font-size:22px;
+}
+.frontend-empty-state strong{
+  display:block;
+  font-family:'Outfit',sans-serif;
+  font-size:24px;
+  font-weight:900;
+  color:var(--dark);
+  margin-bottom:8px;
+}
+.frontend-empty-state span{
+  display:block;
+  font-size:13px;
+  line-height:1.7;
+}
