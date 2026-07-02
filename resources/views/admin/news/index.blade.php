@@ -5,8 +5,8 @@
 @section('page_action')<a class="btn btn-primary" href="{{ route('admin.news.create') }}"><i class="fas fa-plus"></i> Tambah News</a>@endsection
 @section('content')
 <div class="card">
-  <div class="table-wrap">
-    <table class="table admin-table content-table">
+  <div class="table-wrap compact-content-wrap">
+    <table class="table admin-table content-table compact-content-table">
       <thead>
         <tr>
           <th>Artikel</th>
@@ -23,14 +23,14 @@
             <td>
               <div class="content-cell">
                 @if($article->image_url)
-                  <img src="{{ $article->image_url }}" alt="{{ $article->title }}">
+                  <img class="admin-list-thumb" src="{{ $article->image_url }}" alt="{{ $article->title }}">
                 @else
                   <div class="content-thumb"><i class="fas fa-newspaper"></i></div>
                 @endif
-                <div>
+                <div class="content-title-stack">
                   <strong>{{ $article->title }}</strong>
                   <small>{{ $article->slug }}</small>
-                  @if($article->excerpt)<p>{{ \Illuminate\Support\Str::limit($article->excerpt, 90) }}</p>@endif
+                  @if($article->excerpt)<p>{{ \Illuminate\Support\Str::limit($article->excerpt, 100) }}</p>@endif
                 </div>
               </div>
             </td>

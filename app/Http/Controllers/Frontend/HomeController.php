@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Frontend;
 use App\Http\Controllers\Controller;
 use App\Models\AboutSection;
 use App\Models\AboutStat;
-use App\Models\CareerPosition;
 use App\Models\Category;
 use App\Models\CtaSection;
 use App\Models\Feature;
@@ -13,7 +12,6 @@ use App\Models\FooterLink;
 use App\Models\GoogleMapSection;
 use App\Models\HeroSection;
 use App\Models\HeroTrustItem;
-use App\Models\NewsArticle;
 use App\Models\Product;
 use App\Models\SiteSetting;
 use App\Models\SocialMediaLink;
@@ -63,25 +61,6 @@ class HomeController extends Controller
             'aboutStats' => AboutStat::query()->where('is_active', true)->orderBy('sort_order')->get(),
             'socialWidgets' => SocialWidget::query()->where('is_active', true)->orderBy('sort_order')->get(),
             'socialLinks' => SocialMediaLink::query()->where('is_active', true)->orderBy('sort_order')->get(),
-            'newsArticles' => NewsArticle::query()
-                ->where('is_active', true)
-                ->where(function ($query) {
-                    $query->whereNull('published_at')->orWhere('published_at', '<=', now());
-                })
-                ->orderByDesc('is_featured')
-                ->orderBy('sort_order')
-                ->orderByDesc('published_at')
-                ->limit(3)
-                ->get(),
-            'careerPositions' => CareerPosition::query()
-                ->where('is_active', true)
-                ->where(function ($query) {
-                    $query->whereNull('closes_at')->orWhere('closes_at', '>=', now()->toDateString());
-                })
-                ->orderBy('sort_order')
-                ->orderByDesc('created_at')
-                ->limit(3)
-                ->get(),
             'googleMap' => GoogleMapSection::query()->where('is_active', true)->first(),
             'cta' => CtaSection::query()->first(),
             'footerLinks' => FooterLink::query()->where('is_active', true)->orderBy('sort_order')->get()->groupBy('group'),

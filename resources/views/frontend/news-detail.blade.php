@@ -15,13 +15,13 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-  <link rel="stylesheet" href="{{ asset('hokcup/css/frontend.css') }}">
+  <link rel="stylesheet" href="{{ asset('hokcup/css/frontend.css') }}?v=15">
 </head>
 <body>
   <nav class="nav">
     <div class="nav-inner">
       <a href="{{ route('home') }}" class="brand"><img src="{{ $siteSetting?->logo_url ?? '' }}" alt="{{ $siteName }}"><div class="brand-copy"><strong>{{ $siteName }}</strong><span>{{ $siteSetting?->brand_tagline ?? 'Food Grade Packaging' }}</span></div></a>
-      <div class="nav-links"><a href="{{ route('home') }}#produk">Produk</a><a href="{{ route('home') }}#news">News</a><a href="{{ route('home') }}#karir">Karir</a><a href="{{ route('home') }}#kontak">Kontak</a></div>
+      <div class="nav-links"><a href="{{ route('home') }}#produk">Produk</a><a href="{{ route('news.index') }}">News</a><a href="{{ route('careers.index') }}">Karir</a><a href="{{ route('home') }}#kontak">Kontak</a></div>
       <div class="nav-actions"><a href="{{ route('home') }}" class="btn btn-primary"><i class="fas fa-home"></i> Website</a></div>
     </div>
   </nav>
@@ -29,7 +29,7 @@
   <main class="detail-page">
     <section class="section">
       <div class="container detail-wrap">
-        <a class="back-link" href="{{ route('home') }}#news"><i class="fas fa-arrow-left"></i> Kembali ke News</a>
+        <a class="back-link" href="{{ route('news.index') }}"><i class="fas fa-arrow-left"></i> Kembali ke News</a>
         <article class="detail-article">
           <div class="detail-kicker"><i class="fas fa-newspaper"></i> News @if($article->published_at) · {{ $article->published_at->format('d M Y') }} @endif @if($article->author) · {{ $article->author }} @endif</div>
           <h1>{{ $article->title }}</h1>

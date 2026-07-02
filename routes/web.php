@@ -29,7 +29,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/wa', [WhatsappRedirectController::class, 'redirect'])->name('whatsapp.redirect');
+Route::get('/news', [ContentController::class, 'newsIndex'])->name('news.index');
 Route::get('/news/{newsArticle:slug}', [ContentController::class, 'news'])->name('news.show');
+Route::get('/karir', [ContentController::class, 'careersIndex'])->name('careers.index');
 Route::get('/karir/{careerPosition:slug}', [ContentController::class, 'career'])->name('careers.show');
 
 Route::middleware('guest')->group(function () {
