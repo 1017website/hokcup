@@ -23,6 +23,18 @@ class AdminLoginController extends Controller
         ]);
 
         if (Auth::attempt($credentials, $request->boolean('remember'))) {
+            $user = Auth::user();
+
+            if (property_exists($user, 'is_active') || isset($user->is_active)) {
+                if (! (bool) $user->is_active) {
+                    Auth::logout();
+                    $request->session()->invalidate();
+                    $request->session()->regenerateToken();
+
+                    return back()->withErrors(['email' => 'Akun CMS ini sedang nonaktif. Hubungi administrator.'])->onlyInput('email');
+                }
+            }
+
             $request->session()->regenerate();
             return redirect()->intended(route('admin.dashboard'));
         }

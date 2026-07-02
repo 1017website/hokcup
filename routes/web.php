@@ -16,6 +16,8 @@ use App\Http\Controllers\Admin\SocialMediaLinkController;
 use App\Http\Controllers\Admin\SocialWidgetController;
 use App\Http\Controllers\Admin\VisitorAnalyticsController;
 use App\Http\Controllers\Admin\MaintenanceCommandController;
+use App\Http\Controllers\Admin\ProfilePasswordController;
+use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Auth\AdminLoginController;
 use App\Http\Controllers\Frontend\HomeController;
 use Illuminate\Support\Facades\Route;
@@ -40,6 +42,9 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
     Route::put('/analytics-ads', [AnalyticsAdsController::class, 'update'])->name('analytics-ads.update');
     Route::get('/commands', [MaintenanceCommandController::class, 'index'])->name('commands.index');
     Route::post('/commands/run', [MaintenanceCommandController::class, 'run'])->name('commands.run');
+    Route::get('/profile/password', [ProfilePasswordController::class, 'edit'])->name('profile.password.edit');
+    Route::put('/profile/password', [ProfilePasswordController::class, 'update'])->name('profile.password.update');
+    Route::resource('users', UserController::class)->except(['show']);
     Route::get('/hero', [HeroSectionController::class, 'edit'])->name('hero.edit');
     Route::put('/hero', [HeroSectionController::class, 'update'])->name('hero.update');
     Route::resource('categories', CategoryController::class)->except(['show']);

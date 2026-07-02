@@ -11,6 +11,7 @@ use App\Models\SiteSetting;
 use App\Models\SocialMediaLink;
 use App\Models\SocialWidget;
 use App\Models\VisitorLog;
+use App\Models\User;
 use Illuminate\View\View;
 
 class DashboardController extends Controller
@@ -24,6 +25,8 @@ class DashboardController extends Controller
             'setting' => $setting,
             'productCount' => Product::count(),
             'activeProductCount' => Product::where('is_active', true)->count(),
+            'userCount' => User::count(),
+            'developerCount' => User::where('role', 'developer')->count(),
             'categoryCount' => Category::count(),
             'featureCount' => Feature::count(),
             'socialWidgetCount' => SocialWidget::count(),

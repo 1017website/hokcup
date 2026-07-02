@@ -24,10 +24,11 @@ class HokCupSeeder extends Seeder
 {
     public function run(): void
     {
-        User::updateOrCreate(
+        $adminUser = User::updateOrCreate(
             ['email' => 'admin@hokcup.test'],
             ['name' => 'Admin Hok Cup', 'password' => Hash::make('password123')]
         );
+        $adminUser->forceFill(['role' => 'admin', 'is_active' => true])->save();
 
         $logo = 'https://res.cloudinary.com/dcpleyqfl/image/upload/q_auto/f_auto/v1778623665/logo_3_ow2uyr.png';
         SiteSetting::query()->updateOrCreate([], [

@@ -49,6 +49,10 @@
       <a class="side-link @if(request()->routeIs('admin.site-settings.*')) active @endif" href="{{ route('admin.site-settings.edit') }}"><i class="fas fa-gear"></i> Site Setting & WA</a>
       <a class="side-link @if(request()->routeIs('admin.commands.*')) active @endif" href="{{ route('admin.commands.index') }}"><i class="fas fa-terminal"></i> Artisan Command</a>
 
+      <div class="nav-title">Akses CMS</div>
+      <a class="side-link @if(request()->routeIs('admin.users.*')) active @endif" href="{{ route('admin.users.index') }}"><i class="fas fa-users-gear"></i> User CMS</a>
+      <a class="side-link @if(request()->routeIs('admin.profile.password.*')) active @endif" href="{{ route('admin.profile.password.edit') }}"><i class="fas fa-key"></i> Ubah Password</a>
+
       <div class="nav-title">Landing Page</div>
       <a class="side-link @if(request()->routeIs('admin.hero.*')) active @endif" href="{{ route('admin.hero.edit') }}"><i class="fas fa-wand-magic-sparkles"></i> Hero Section</a>
       <a class="side-link @if(request()->routeIs('admin.features.*')) active @endif" href="{{ route('admin.features.index') }}"><i class="fas fa-medal"></i> Keunggulan</a>
@@ -62,6 +66,14 @@
       <a class="side-link @if(request()->routeIs('admin.categories.*')) active @endif" href="{{ route('admin.categories.index') }}"><i class="fas fa-layer-group"></i> Kategori</a>
       <a class="side-link @if(request()->routeIs('admin.products.*')) active @endif" href="{{ route('admin.products.index') }}"><i class="fas fa-box-open"></i> Produk</a>
       <a class="side-link @if(request()->routeIs('admin.footer-links.*')) active @endif" href="{{ route('admin.footer-links.index') }}"><i class="fas fa-link"></i> Footer Links</a>
+
+      <div class="sidebar-user">
+        <div class="sidebar-user-avatar">{{ strtoupper(mb_substr(auth()->user()->name ?? 'U', 0, 1)) }}</div>
+        <div>
+          <strong>{{ auth()->user()->name }}</strong>
+          <span>{{ ucfirst(auth()->user()->role ?? 'Admin') }}</span>
+        </div>
+      </div>
 
       <form action="{{ route('logout') }}" method="POST" class="logout-form">
         @csrf

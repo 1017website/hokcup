@@ -14,7 +14,7 @@
     @csrf
     <div class="login-logo">HC</div>
     <h1>Login CMS</h1>
-    <p class="help">Default seed: <strong>admin@hokcup.test</strong> / <strong>password123</strong>. Segera ganti password setelah login.</p>
+    <p class="help">Masuk menggunakan akun CMS yang sudah diberikan oleh administrator.</p>
     @if($errors->any())<div class="danger">{{ $errors->first() }}</div>@endif
     <div class="field"><label>Email</label><input type="email" name="email" value="{{ old('email') }}" required autofocus></div><br>
     <div class="field"><label>Password</label><input type="password" name="password" required></div><br>

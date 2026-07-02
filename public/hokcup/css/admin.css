@@ -179,3 +179,109 @@ a{text-decoration:none;color:inherit}button,input,textarea,select{font:inherit}i
     white-space: normal;
   }
 }
+
+/* Revisi 7: User CMS, developer access, dan ubah password */
+.sidebar-user {
+  margin-top: 22px;
+  padding: 13px;
+  border-radius: 18px;
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  background: rgba(255,255,255,.075);
+  border: 1px solid rgba(255,255,255,.09);
+}
+
+.sidebar-user-avatar,
+.user-avatar,
+.profile-avatar {
+  width: 42px;
+  height: 42px;
+  border-radius: 15px;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(135deg,var(--yellow),#fff0a6);
+  color: var(--red);
+  font-family: 'Outfit',sans-serif;
+  font-weight: 900;
+  flex: 0 0 auto;
+}
+
+.sidebar-user strong {
+  display: block;
+  color: #fff;
+  font-size: 13px;
+  line-height: 1.2;
+  max-width: 170px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.sidebar-user span {
+  display: block;
+  color: rgba(255,255,255,.56);
+  font-size: 11px;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  margin-top: 3px;
+}
+
+.user-cell,
+.profile-summary {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.user-cell strong,
+.profile-summary strong {
+  display: block;
+  font-weight: 900;
+  color: var(--ink);
+}
+
+.user-cell span,
+.profile-summary span {
+  display: block;
+  color: var(--muted);
+  font-size: 12px;
+  margin-top: 3px;
+}
+
+.user-cell small {
+  display: inline-flex;
+  margin-top: 6px;
+  padding: 4px 8px;
+  border-radius: 999px;
+  background: #fff3bd;
+  color: #7a4b00;
+  font-size: 10px;
+  font-weight: 900;
+}
+
+.pill-soft {
+  background: #fff8e7;
+  color: #68431b;
+  border: 1px solid #f1dfbd;
+}
+
+.user-table td:last-child {
+  min-width: 190px;
+}
+
+@media(max-width:900px){
+  .sidebar-user strong { max-width: 190px; }
+  .user-cell { align-items: flex-start; }
+}
+
+@media(max-width:560px){
+  .user-cell,
+  .profile-summary {
+    align-items: flex-start;
+  }
+  .user-table td:last-child {
+    min-width: 170px;
+  }
+}

@@ -62,6 +62,8 @@
       <div class="status-item"><strong>Google Maps</strong><span class="pill {{ $googleMapIsActive ? 'pill-green' : 'pill-red' }}">{{ $googleMapIsActive ? 'Aktif' : 'Nonaktif' }}</span></div>
       <div class="status-item"><strong>Keunggulan</strong><span class="pill pill-green">{{ $featureCount }} Item</span></div>
       <div class="status-item"><strong>Kontak WA</strong><span class="pill {{ filled($setting->whatsapp_number) ? 'pill-green' : 'pill-red' }}">{{ filled($setting->whatsapp_number) ? 'Siap' : 'Belum' }}</span></div>
+      <div class="status-item"><strong>User CMS</strong><span class="pill pill-green">{{ $userCount }} User</span></div>
+      <div class="status-item"><strong>Developer</strong><span class="pill pill-green">{{ $developerCount }} Akun</span></div>
     </div>
   </div>
 
@@ -75,6 +77,8 @@
       <a class="btn btn-light" href="{{ route('admin.social-media-links.index') }}"><i class="fas fa-hashtag"></i> Sosial Media</a>
       <a class="btn btn-light" href="{{ route('admin.google-map.edit') }}"><i class="fas fa-map-location-dot"></i> Google Maps</a>
       <a class="btn btn-light" href="{{ route('admin.commands.index') }}"><i class="fas fa-terminal"></i> Artisan Command</a>
+      <a class="btn btn-light" href="{{ route('admin.users.index') }}"><i class="fas fa-users-gear"></i> User CMS</a>
+      <a class="btn btn-light" href="{{ route('admin.profile.password.edit') }}"><i class="fas fa-key"></i> Ubah Password</a>
     </div>
   </div>
 </div>
