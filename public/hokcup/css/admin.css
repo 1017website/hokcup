@@ -285,3 +285,124 @@ a{text-decoration:none;color:inherit}button,input,textarea,select{font:inherit}i
     min-width: 170px;
   }
 }
+
+/* Revisi 8: CS WhatsApp round-robin */
+.wa-active-box {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  justify-content: flex-end;
+}
+
+.switch-row {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  font-weight: 900;
+  color: var(--ink);
+  cursor: pointer;
+}
+
+.switch-row input {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--red);
+}
+
+.switch-row-compact {
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+.wa-cs-table {
+  min-width: 1180px;
+}
+
+.wa-cs-table input,
+.wa-cs-table textarea {
+  width: 100%;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: #fffdf9;
+  padding: 10px 11px;
+  outline: none;
+  color: var(--dark);
+  font-size: 13px;
+}
+
+.wa-cs-table textarea {
+  min-height: 44px;
+  resize: vertical;
+}
+
+.wa-cs-table input:focus,
+.wa-cs-table textarea:focus {
+  border-color: rgba(215,25,32,.55);
+  box-shadow: 0 0 0 4px rgba(215,25,32,.08);
+}
+
+.wa-cs-table td:nth-child(1) { min-width: 220px; }
+.wa-cs-table td:nth-child(2) { min-width: 240px; }
+.wa-cs-table td:nth-child(3) { min-width: 300px; }
+.wa-cs-table td:nth-child(4) { min-width: 90px; }
+.wa-cs-table td:nth-child(8) { min-width: 130px; }
+
+.wa-distribution {
+  display: grid;
+  gap: 15px;
+  margin-top: 16px;
+}
+
+.wa-progress-item {
+  display: grid;
+  gap: 8px;
+}
+
+.wa-progress-item > div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+}
+
+.wa-progress-item strong {
+  font-weight: 900;
+  color: var(--ink);
+}
+
+.wa-progress-item span {
+  font-size: 12px;
+  color: var(--muted);
+  font-weight: 900;
+  white-space: nowrap;
+}
+
+.wa-progress-item em {
+  display: block;
+  height: 10px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: #f0e4da;
+}
+
+.wa-progress-item em i {
+  display: block;
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(135deg,var(--red),#fb3a24);
+  box-shadow: 0 8px 18px rgba(215,25,32,.18);
+}
+
+@media(max-width:900px){
+  .wa-active-box {
+    justify-content: flex-start;
+  }
+  .wa-progress-item > div {
+    display: block;
+  }
+  .wa-progress-item span {
+    display: block;
+    margin-top: 4px;
+    white-space: normal;
+  }
+}

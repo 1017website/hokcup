@@ -1,6 +1,6 @@
 @php
   $siteName = $siteSetting?->site_name ?? 'Hok Cup';
-  $waNumber = $siteSetting?->whatsapp_number ?? '6281234567890';
+  $waNumber = $siteSetting?->whatsapp_number ?? '6281234567890'; // fallback jika semua CS WhatsApp nonaktif
   $trackingBaseId = $siteSetting?->google_analytics_id ?: $siteSetting?->google_ads_id;
 @endphp
 <!DOCTYPE html>
@@ -84,7 +84,7 @@
       </div>
       <div class="nav-actions">
         <button class="search-nav-btn" onclick="openSearch()" aria-label="Cari produk"><i class="fas fa-search"></i></button>
-        <a href="https://wa.me/{{ $waNumber }}?text={{ urlencode('Halo '.$siteName.', saya ingin bertanya produk') }}" target="_blank" class="btn btn-primary"><i class="fab fa-whatsapp"></i> Tanya Produk</a>
+        <a href="{{ route('whatsapp.redirect', ['text' => 'Halo '.$siteName.', saya ingin bertanya produk']) }}" target="_blank" class="btn btn-primary"><i class="fab fa-whatsapp"></i> Tanya Produk</a>
         <button class="menu-btn" onclick="toggleMobileMenu()" aria-label="Buka menu"><i class="fas fa-bars"></i></button>
       </div>
     </div>
@@ -305,7 +305,7 @@
           <h2 class="title">{{ $cta?->title ?? '' }}</h2>
           <p class="lead">{{ $cta?->description ?? '' }}</p>
         </div>
-        <a class="btn btn-light" href="https://wa.me/{{ $waNumber }}?text={{ urlencode($cta?->whatsapp_message ?? 'Halo Hok Cup, saya ingin konsultasi produk') }}" target="_blank"><i class="{{ $cta?->button_icon ?? 'fab fa-whatsapp' }}"></i> {{ $cta?->button_text ?? 'Konsultasi WhatsApp' }}</a>
+        <a class="btn btn-light" href="{{ route('whatsapp.redirect', ['text' => ($cta?->whatsapp_message ?: ('Halo '.$siteName.', saya ingin konsultasi produk'))]) }}" target="_blank"><i class="{{ $cta?->button_icon ?? 'fab fa-whatsapp' }}"></i> {{ $cta?->button_text ?? 'Konsultasi WhatsApp' }}</a>
       </div>
     </section>
   </main>
@@ -368,7 +368,8 @@
 
   <script>
     const LOGO = @json($siteSetting?->logo_url ?? '');
-    const WA_NUMBER = @json($waNumber);
+    const WA_REDIRECT_URL = @json(route('whatsapp.redirect'));
+    const SITE_NAME = @json($siteName);
     const categories = @json($frontendCategories);
     const products = @json($frontendProducts);
 
@@ -551,13 +552,20 @@
     function closeModalBackdrop(e){
       if(e.target.id === 'productModal') closeModal();
     }
+    function buildWaUrl(text, productName = ''){
+      const url = new URL(WA_REDIRECT_URL, window.location.origin);
+      url.searchParams.set('text', text);
+      if(productName) url.searchParams.set('product', productName);
+      return url.toString();
+    }
     function openWa(productName){
-      const text = `Halo Hok Cup, saya ingin bertanya tentang produk ${decodeURIComponent(productName)}.`;
-      window.open(`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(text)}`, '_blank');
+      const decodedProduct = decodeURIComponent(productName || '');
+      const text = `Halo ${SITE_NAME}, saya ingin bertanya tentang produk ${decodedProduct}.`;
+      window.open(buildWaUrl(text, decodedProduct), '_blank');
     }
     function openWaGeneral(){
-      const text = 'Halo Hok Cup, saya ingin bertanya produk dan katalog harga.';
-      window.open(`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(text)}`, '_blank');
+      const text = `Halo ${SITE_NAME}, saya ingin bertanya produk dan katalog harga.`;
+      window.open(buildWaUrl(text), '_blank');
     }
     function toggleMobileMenu(){document.getElementById('mobileMenu').classList.toggle('open')}
     function closeMobileMenu(){document.getElementById('mobileMenu').classList.remove('open')}

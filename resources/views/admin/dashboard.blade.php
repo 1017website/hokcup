@@ -22,13 +22,13 @@
 
 <div class="grid grid-3">
   <div class="card">
-    <h3>Nomor WhatsApp</h3>
-    <p class="help">Nomor WA yang dipakai tombol navbar, CTA, floating button, dan detail produk.</p>
+    <h3>CS WhatsApp</h3>
+    <p class="help">Tombol WA dibagi rata ke CS aktif dengan sistem round-robin berbasis jumlah click.</p>
     <div class="card-mini card-mini-full">
       <i class="fab fa-whatsapp"></i>
-      <div><strong>{{ $setting->whatsapp_number ?: 'Belum diisi' }}</strong><span>Format: 628xxxxxxxxxx tanpa tanda plus</span></div>
+      <div><strong>{{ $activeWhatsappCsCount }} CS Aktif</strong><span>{{ number_format($whatsappClickCount) }} total click WA · fallback: {{ $setting->whatsapp_number ?: 'Belum diisi' }}</span></div>
     </div>
-    <div style="margin-top:16px"><a class="btn btn-primary" href="{{ route('admin.site-settings.edit') }}"><i class="fas fa-gear"></i> Atur Nomor WA</a></div>
+    <div style="margin-top:16px"><a class="btn btn-primary" href="{{ route('admin.whatsapp-cs.index') }}"><i class="fab fa-whatsapp"></i> Kelola CS WhatsApp</a></div>
   </div>
 
   <div class="card">
@@ -61,7 +61,7 @@
       <div class="status-item"><strong>Social Proof Widget</strong><span class="pill pill-green">{{ $socialWidgetCount }} Widget</span></div>
       <div class="status-item"><strong>Google Maps</strong><span class="pill {{ $googleMapIsActive ? 'pill-green' : 'pill-red' }}">{{ $googleMapIsActive ? 'Aktif' : 'Nonaktif' }}</span></div>
       <div class="status-item"><strong>Keunggulan</strong><span class="pill pill-green">{{ $featureCount }} Item</span></div>
-      <div class="status-item"><strong>Kontak WA</strong><span class="pill {{ filled($setting->whatsapp_number) ? 'pill-green' : 'pill-red' }}">{{ filled($setting->whatsapp_number) ? 'Siap' : 'Belum' }}</span></div>
+      <div class="status-item"><strong>CS WhatsApp</strong><span class="pill {{ $activeWhatsappCsCount > 0 ? 'pill-green' : 'pill-red' }}">{{ $activeWhatsappCsCount }} Aktif</span></div>
       <div class="status-item"><strong>User CMS</strong><span class="pill pill-green">{{ $userCount }} User</span></div>
       <div class="status-item"><strong>Developer</strong><span class="pill pill-green">{{ $developerCount }} Akun</span></div>
     </div>
@@ -73,7 +73,7 @@
       <a class="btn btn-light" href="{{ route('admin.analytics.index') }}"><i class="fas fa-chart-line"></i> Visitor Analytics</a>
       <a class="btn btn-light" href="{{ route('admin.seo.edit') }}"><i class="fas fa-magnifying-glass-chart"></i> SEO</a>
       <a class="btn btn-light" href="{{ route('admin.products.index') }}"><i class="fas fa-box"></i> Kelola Produk</a>
-      <a class="btn btn-light" href="{{ route('admin.site-settings.edit') }}"><i class="fab fa-whatsapp"></i> Nomor WA</a>
+      <a class="btn btn-light" href="{{ route('admin.whatsapp-cs.index') }}"><i class="fab fa-whatsapp"></i> CS WhatsApp</a>
       <a class="btn btn-light" href="{{ route('admin.social-media-links.index') }}"><i class="fas fa-hashtag"></i> Sosial Media</a>
       <a class="btn btn-light" href="{{ route('admin.google-map.edit') }}"><i class="fas fa-map-location-dot"></i> Google Maps</a>
       <a class="btn btn-light" href="{{ route('admin.commands.index') }}"><i class="fas fa-terminal"></i> Artisan Command</a>

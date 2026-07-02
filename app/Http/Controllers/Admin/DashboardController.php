@@ -12,6 +12,7 @@ use App\Models\SocialMediaLink;
 use App\Models\SocialWidget;
 use App\Models\VisitorLog;
 use App\Models\User;
+use App\Models\WhatsappCustomerService;
 use Illuminate\View\View;
 
 class DashboardController extends Controller
@@ -31,6 +32,9 @@ class DashboardController extends Controller
             'featureCount' => Feature::count(),
             'socialWidgetCount' => SocialWidget::count(),
             'socialMediaCount' => SocialMediaLink::where('is_active', true)->count(),
+            'whatsappCsCount' => WhatsappCustomerService::count(),
+            'activeWhatsappCsCount' => WhatsappCustomerService::where('is_active', true)->count(),
+            'whatsappClickCount' => WhatsappCustomerService::sum('total_clicks'),
             'googleMapIsActive' => (bool) optional($googleMap)->is_active,
             'totalVisitors' => VisitorLog::distinct('visitor_hash')->count('visitor_hash'),
             'totalViews' => VisitorLog::count(),

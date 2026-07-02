@@ -47,6 +47,7 @@
       <a class="side-link @if(request()->routeIs('admin.analytics-ads.*')) active @endif" href="{{ route('admin.analytics-ads.edit') }}"><i class="fas fa-bullseye"></i> Tracking & Ads</a>
       <a class="side-link @if(request()->routeIs('admin.seo.*')) active @endif" href="{{ route('admin.seo.edit') }}"><i class="fas fa-magnifying-glass-chart"></i> SEO</a>
       <a class="side-link @if(request()->routeIs('admin.site-settings.*')) active @endif" href="{{ route('admin.site-settings.edit') }}"><i class="fas fa-gear"></i> Site Setting & WA</a>
+      <a class="side-link @if(request()->routeIs('admin.whatsapp-cs.*')) active @endif" href="{{ route('admin.whatsapp-cs.index') }}"><i class="fab fa-whatsapp"></i> CS WhatsApp</a>
       <a class="side-link @if(request()->routeIs('admin.commands.*')) active @endif" href="{{ route('admin.commands.index') }}"><i class="fas fa-terminal"></i> Artisan Command</a>
 
       <div class="nav-title">Akses CMS</div>
