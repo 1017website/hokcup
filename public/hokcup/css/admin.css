@@ -406,3 +406,78 @@ a{text-decoration:none;color:inherit}button,input,textarea,select{font:inherit}i
     white-space: normal;
   }
 }
+
+/* REVISI 9 - FIX GARIS TABEL ADMIN PATAH
+   Penyebab utama: ada <td> yang dibuat display:flex sehingga border table terputus.
+   Fix: pastikan cell tetap table-cell, flex dipindahkan ke inner wrapper. */
+.table-wrap,
+.admin-table-wrap,
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.table,
+.admin-table,
+table.table {
+  border-collapse: collapse !important;
+  border-spacing: 0 !important;
+}
+
+.table th,
+.table td,
+.admin-table th,
+.admin-table td,
+table.table th,
+table.table td {
+  border-bottom: 1px solid var(--line) !important;
+  vertical-align: middle;
+}
+
+.table tbody tr:last-child td,
+.admin-table tbody tr:last-child td,
+table.table tbody tr:last-child td {
+  border-bottom: 0 !important;
+}
+
+.product-table .product-cell {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 280px;
+}
+
+.product-table .product-cell strong {
+  display: block;
+  line-height: 1.2;
+}
+
+.product-table .product-cell small {
+  display: block;
+  margin-top: 4px;
+  color: var(--muted);
+  word-break: break-word;
+}
+
+.product-table td.actions {
+  white-space: nowrap;
+}
+
+.product-table td.actions form {
+  display: inline-flex;
+  margin: 0;
+}
+
+@media (max-width: 760px) {
+  .product-table .product-cell {
+    min-width: 240px;
+  }
+}
+
+/* REVISI 10 - ADMIN NEWS & KARIR */
+.content-table .content-cell{display:flex;align-items:center;gap:12px;min-width:330px}
+.content-table .content-cell img,.content-table .content-thumb{width:64px;height:54px;border-radius:14px;object-fit:cover;flex:0 0 auto;border:1px solid var(--line);background:#fff7df}
+.content-table .content-thumb{display:grid;place-items:center;color:var(--red);font-size:20px}
+.content-table strong{display:block;line-height:1.2}.content-table small{display:block;color:var(--muted);margin-top:4px}.content-table p{margin-top:7px;color:var(--muted);font-size:12px;line-height:1.55}.form-check-row{display:flex;gap:18px;flex-wrap:wrap}.form-check-row label,.form-check-inline{display:inline-flex;gap:8px;align-items:center;font-weight:900;color:var(--ink)}
+.content-table td.actions{white-space:nowrap}.content-table td.actions form{display:inline-flex;margin:0}
+@media(max-width:760px){.content-table .content-cell{min-width:260px}.form-check-row{display:grid;gap:10px}}

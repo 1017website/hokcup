@@ -79,6 +79,8 @@
         <a href="#keunggulan">Keunggulan</a>
         <a href="#tentang">Tentang</a>
         <a href="#sosial-media">Sosial</a>
+        <a href="#news">News</a>
+        <a href="#karir">Karir</a>
         <a href="#lokasi">Lokasi</a>
         <a href="#kontak">Kontak</a>
       </div>
@@ -95,6 +97,8 @@
     <a onclick="closeMobileMenu()" href="#keunggulan">Keunggulan</a>
     <a onclick="closeMobileMenu()" href="#tentang">Tentang</a>
     <a onclick="closeMobileMenu()" href="#sosial-media">Sosial Media</a>
+    <a onclick="closeMobileMenu()" href="#news">News</a>
+    <a onclick="closeMobileMenu()" href="#karir">Karir</a>
     <a onclick="closeMobileMenu()" href="#lokasi">Google Maps</a>
     <a onclick="closeMobileMenu()" href="#kontak">Kontak</a>
     <a onclick="closeMobileMenu(); openSearch();" href="javascript:void(0)"><i class="fas fa-search"></i> Cari Produk</a>
@@ -271,6 +275,81 @@
         </div>
       </div>
     </section>
+
+
+    @if(($newsArticles ?? collect())->isNotEmpty())
+      <section class="section news-section" id="news">
+        <div class="container">
+          <div class="section-head">
+            <div>
+              <span class="eyebrow"><i class="fas fa-newspaper"></i> News</span>
+              <h2 class="title" style="margin-top:16px">Update Terbaru {{ $siteName }}</h2>
+            </div>
+            <p class="lead">Bagikan artikel, informasi terbaru, promo editorial, atau edukasi produk yang bisa dikelola dari CMS.</p>
+          </div>
+          <div class="news-grid">
+            @foreach($newsArticles as $article)
+              <article class="news-card">
+                <a class="news-image" href="{{ route('news.show',$article) }}">
+                  @if($article->image_url)
+                    <img src="{{ $article->image_url }}" alt="{{ $article->title }}" loading="lazy">
+                  @else
+                    <div class="news-image-placeholder"><i class="fas fa-newspaper"></i></div>
+                  @endif
+                  @if($article->is_featured)<span>Featured</span>@endif
+                </a>
+                <div class="news-body">
+                  <small>{{ $article->published_at?->format('d M Y') ?: 'News' }} @if($article->author) · {{ $article->author }} @endif</small>
+                  <h3><a href="{{ route('news.show',$article) }}">{{ $article->title }}</a></h3>
+                  <p>{{ $article->short_excerpt }}</p>
+                  <a class="text-link" href="{{ route('news.show',$article) }}">Baca Selengkapnya <i class="fas fa-arrow-right"></i></a>
+                </div>
+              </article>
+            @endforeach
+          </div>
+        </div>
+      </section>
+    @endif
+
+    @if(($careerPositions ?? collect())->isNotEmpty())
+      <section class="section career-section" id="karir">
+        <div class="container">
+          <div class="section-head">
+            <div>
+              <span class="eyebrow"><i class="fas fa-briefcase"></i> Karir</span>
+              <h2 class="title" style="margin-top:16px">Bergabung Bersama {{ $siteName }}</h2>
+            </div>
+            <p class="lead">Tampilkan lowongan kerja aktif, lokasi, tipe kerja, dan link apply agar calon kandidat bisa langsung menghubungi tim Anda.</p>
+          </div>
+          <div class="career-grid">
+            @foreach($careerPositions as $career)
+              <article class="career-card">
+                <div class="career-top">
+                  <div class="career-icon"><i class="fas fa-user-tie"></i></div>
+                  <div>
+                    <small>{{ $career->department ?: 'Karir' }}</small>
+                    <h3>{{ $career->title }}</h3>
+                  </div>
+                </div>
+                <p>{{ $career->short_summary }}</p>
+                <div class="career-meta">
+                  @if($career->location)<span><i class="fas fa-location-dot"></i> {{ $career->location }}</span>@endif
+                  @if($career->employment_type)<span><i class="fas fa-clock"></i> {{ $career->employment_type }}</span>@endif
+                  @if($career->work_type)<span><i class="fas fa-building-user"></i> {{ $career->work_type }}</span>@endif
+                  @if($career->closes_at)<span><i class="fas fa-calendar"></i> Deadline {{ $career->closes_at->format('d M Y') }}</span>@endif
+                </div>
+                <div class="career-actions">
+                  <a class="btn btn-light" href="{{ route('careers.show',$career) }}">Detail</a>
+                  @if($career->apply_link)
+                    <a class="btn btn-primary" href="{{ $career->apply_link }}" target="_blank" rel="noopener"><i class="fas fa-paper-plane"></i> Lamar</a>
+                  @endif
+                </div>
+              </article>
+            @endforeach
+          </div>
+        </div>
+      </section>
+    @endif
 
     @if($googleMap)
       <section class="section map-section" id="lokasi">

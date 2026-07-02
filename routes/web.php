@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\AboutSectionController;
 use App\Http\Controllers\Admin\AnalyticsAdsController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\CareerPositionController;
 use App\Http\Controllers\Admin\CtaSectionController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\FeatureController;
@@ -16,16 +17,20 @@ use App\Http\Controllers\Admin\SocialMediaLinkController;
 use App\Http\Controllers\Admin\SocialWidgetController;
 use App\Http\Controllers\Admin\VisitorAnalyticsController;
 use App\Http\Controllers\Admin\MaintenanceCommandController;
+use App\Http\Controllers\Admin\NewsArticleController;
 use App\Http\Controllers\Admin\ProfilePasswordController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\WhatsappCustomerServiceController;
 use App\Http\Controllers\Auth\AdminLoginController;
+use App\Http\Controllers\Frontend\ContentController;
 use App\Http\Controllers\Frontend\HomeController;
 use App\Http\Controllers\Frontend\WhatsappRedirectController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/wa', [WhatsappRedirectController::class, 'redirect'])->name('whatsapp.redirect');
+Route::get('/news/{newsArticle:slug}', [ContentController::class, 'news'])->name('news.show');
+Route::get('/karir/{careerPosition:slug}', [ContentController::class, 'career'])->name('careers.show');
 
 Route::middleware('guest')->group(function () {
     Route::get('/admin/login', [AdminLoginController::class, 'showLoginForm'])->name('login');
@@ -64,6 +69,8 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
     Route::resource('social-media-links', SocialMediaLinkController::class)->except(['show']);
     Route::get('/google-map', [GoogleMapSectionController::class, 'edit'])->name('google-map.edit');
     Route::put('/google-map', [GoogleMapSectionController::class, 'update'])->name('google-map.update');
+    Route::resource('news', NewsArticleController::class)->parameters(['news' => 'newsArticle'])->except(['show']);
+    Route::resource('careers', CareerPositionController::class)->parameters(['careers' => 'careerPosition'])->except(['show']);
     Route::get('/cta', [CtaSectionController::class, 'edit'])->name('cta.edit');
     Route::put('/cta', [CtaSectionController::class, 'update'])->name('cta.update');
     Route::resource('footer-links', FooterLinkController::class)->except(['show']);
