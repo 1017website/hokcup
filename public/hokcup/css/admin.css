@@ -598,3 +598,7 @@ table.table tbody tr:last-child td {
     max-height: 52px !important;
   }
 }
+
+
+/* REVISI 16 - Favicon preview */
+.preview-favicon{width:42px!important;height:42px!important;object-fit:contain;padding:6px;background:#fff;border-radius:12px}

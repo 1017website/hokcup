@@ -35,6 +35,7 @@ class HokCupSeeder extends Seeder
             'site_name' => 'Hok Cup',
             'brand_tagline' => 'Food Grade Packaging',
             'logo' => $logo,
+            'favicon' => $logo,
             'whatsapp_number' => '6281234567890',
             'email' => 'sales@hokcup.co.id',
             'operational_hours' => 'Senin–Sabtu 08.00–17.00',

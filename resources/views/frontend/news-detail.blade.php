@@ -1,11 +1,17 @@
 @php
   $siteName = $siteSetting?->site_name ?? 'Hok Cup';
+  $faviconUrl = $siteSetting?->favicon_url ?: ($siteSetting?->logo_url ?? null);
 @endphp
 <!DOCTYPE html>
 <html lang="id">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  @if($faviconUrl)
+    <link rel="icon" href="{{ $faviconUrl }}">
+    <link rel="shortcut icon" href="{{ $faviconUrl }}">
+    <link rel="apple-touch-icon" href="{{ $faviconUrl }}">
+  @endif
   <title>{{ $article->title }} - {{ $siteName }}</title>
   <meta name="description" content="{{ $article->excerpt ?: $siteSetting?->meta_description }}" />
   <meta property="og:title" content="{{ $article->title }}" />
@@ -15,7 +21,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-  <link rel="stylesheet" href="{{ asset('hokcup/css/frontend.css') }}?v=15">
+  <link rel="stylesheet" href="{{ asset('hokcup/css/frontend.css') }}?v=16">
 </head>
 <body>
   <nav class="nav">

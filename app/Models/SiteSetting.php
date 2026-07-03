@@ -12,7 +12,7 @@ class SiteSetting extends Model
     use HasFactory;
 
     protected $fillable = [
-        'site_name', 'brand_tagline', 'logo', 'whatsapp_number', 'email', 'operational_hours',
+        'site_name', 'brand_tagline', 'logo', 'favicon', 'whatsapp_number', 'email', 'operational_hours',
         'meta_title', 'meta_description', 'meta_keywords', 'seo_robots', 'canonical_url',
         'twitter_title', 'twitter_description', 'twitter_image', 'schema_json_ld', 'og_image',
         'google_analytics_id', 'google_tag_manager_id', 'meta_pixel_id', 'google_ads_id',
@@ -22,6 +22,11 @@ class SiteSetting extends Model
     public function getLogoUrlAttribute(): ?string
     {
         return $this->assetUrl($this->logo);
+    }
+
+    public function getFaviconUrlAttribute(): ?string
+    {
+        return $this->assetUrl($this->favicon);
     }
 
     public function getOgImageUrlAttribute(): ?string

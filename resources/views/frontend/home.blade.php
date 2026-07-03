@@ -1,5 +1,6 @@
 @php
   $siteName = $siteSetting?->site_name ?? 'Hok Cup';
+  $faviconUrl = $siteSetting?->favicon_url ?: ($siteSetting?->logo_url ?? null);
   $waNumber = $siteSetting?->whatsapp_number ?? '6281234567890'; // fallback jika semua CS WhatsApp nonaktif
   $trackingBaseId = $siteSetting?->google_analytics_id ?: $siteSetting?->google_ads_id;
 @endphp
@@ -8,6 +9,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  @if($faviconUrl)
+    <link rel="icon" href="{{ $faviconUrl }}">
+    <link rel="shortcut icon" href="{{ $faviconUrl }}">
+    <link rel="apple-touch-icon" href="{{ $faviconUrl }}">
+  @endif
   <title>{{ $siteSetting?->meta_title ?? $siteName }}</title>
   <meta name="description" content="{{ $siteSetting?->meta_description ?? '' }}" />
   <meta name="keywords" content="{{ $siteSetting?->meta_keywords ?? '' }}" />
@@ -59,7 +65,7 @@
     </script>
   @endif
   {!! $siteSetting?->head_scripts !!}
-  <link rel="stylesheet" href="{{ asset('hokcup/css/frontend.css') }}?v=15">
+  <link rel="stylesheet" href="{{ asset('hokcup/css/frontend.css') }}?v=16">
 </head>
 <body>
   @if($siteSetting?->google_tag_manager_id)

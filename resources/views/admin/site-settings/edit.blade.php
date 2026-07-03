@@ -26,8 +26,10 @@
     </div>
     <div class="field"><label>Email</label><input type="email" name="email" value="{{ old('email',$setting->email) }}" placeholder="sales@hokcup.co.id"></div>
     <div class="field"><label>Jam Operasional</label><input name="operational_hours" value="{{ old('operational_hours',$setting->operational_hours) }}" placeholder="Senin–Sabtu 08.00–17.00"></div>
-    <div class="field"><label>Logo URL</label><input name="logo" value="{{ old('logo',$setting->logo) }}"><div class="help">Bisa URL eksternal atau upload file di bawah.</div></div>
+    <div class="field"><label>Logo URL</label><input name="logo" value="{{ old('logo',$setting->logo) }}"><div class="help">Bisa URL eksternal atau upload file di bawah. Logo ini dipakai di frontend dan sidebar CMS.</div></div>
     <div class="field"><label>Upload Logo</label><input type="file" name="logo_file" accept="image/*">@if($setting->logo_url)<div class="help"><img class="preview" src="{{ $setting->logo_url }}"></div>@endif</div>
+    <div class="field"><label>Favicon URL</label><input name="favicon" value="{{ old('favicon',$setting->favicon) }}" placeholder="https://domain.com/favicon.png"><div class="help">Favicon tampil di tab browser untuk frontend, CMS admin, login CMS, News, Karir, dan halaman detail.</div></div>
+    <div class="field"><label>Upload Favicon</label><input type="file" name="favicon_file" accept="image/*,.ico">@if($setting->favicon_url)<div class="help"><img class="preview preview-favicon" src="{{ $setting->favicon_url }}"></div>@endif</div>
   </div>
 
   <div class="admin-divider"></div>
