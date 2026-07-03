@@ -26,11 +26,38 @@
 <body>
   <nav class="nav">
     <div class="nav-inner">
-      <a href="{{ route('home') }}" class="brand"><img src="{{ $siteSetting?->logo_url ?? '' }}" alt="{{ $siteName }}"><div class="brand-copy"><strong>{{ $siteName }}</strong><span>{{ $siteSetting?->brand_tagline ?? 'Food Grade Packaging' }}</span></div></a>
-      <div class="nav-links"><a href="{{ route('home') }}#produk">Produk</a><a href="{{ route('news.index') }}">News</a><a href="{{ route('careers.index') }}">Karir</a><a href="{{ route('home') }}#kontak">Kontak</a></div>
-      <div class="nav-actions"><a href="{{ route('home') }}" class="btn btn-primary"><i class="fas fa-home"></i> Website</a></div>
+      <a href="{{ route('home') }}" class="brand" aria-label="{{ $siteName }} Home">
+        <img src="{{ $siteSetting?->logo_url ?? '' }}" alt="{{ $siteName }} Logo">
+        <div class="brand-copy"><strong>{{ $siteName }}</strong><span>{{ $siteSetting?->brand_tagline ?? 'Food Grade Packaging' }}</span></div>
+      </a>
+      <div class="nav-links">
+        <a href="{{ route('home') }}#kategori">Kategori</a>
+        <a href="{{ route('home') }}#produk">Produk</a>
+        <a href="{{ route('home') }}#keunggulan">Keunggulan</a>
+        <a href="{{ route('home') }}#tentang">Tentang</a>
+        <a href="{{ route('home') }}#sosial-media">Sosial</a>
+        <a href="{{ route('news.index') }}" class="active-page">News</a>
+        <a href="{{ route('careers.index') }}">Karir</a>
+        <a href="{{ route('home') }}#kontak">Kontak</a>
+      </div>
+      <div class="nav-actions">
+        <a class="search-nav-btn" href="{{ route('home') }}#produk" aria-label="Cari produk"><i class="fas fa-search"></i></a>
+        <a href="{{ route('whatsapp.redirect', ['text' => 'Halo '.$siteName.', saya ingin bertanya produk']) }}" target="_blank" class="btn btn-primary"><i class="fab fa-whatsapp"></i> Tanya Produk</a>
+        <button class="menu-btn" onclick="toggleMobileMenu()" aria-label="Buka menu"><i class="fas fa-bars"></i></button>
+      </div>
     </div>
   </nav>
+  <div class="mobile-menu" id="mobileMenu">
+    <a onclick="closeMobileMenu()" href="{{ route('home') }}#kategori">Kategori</a>
+    <a onclick="closeMobileMenu()" href="{{ route('home') }}#produk">Produk</a>
+    <a onclick="closeMobileMenu()" href="{{ route('home') }}#keunggulan">Keunggulan</a>
+    <a onclick="closeMobileMenu()" href="{{ route('home') }}#tentang">Tentang</a>
+    <a onclick="closeMobileMenu()" href="{{ route('home') }}#sosial-media">Sosial Media</a>
+    <a onclick="closeMobileMenu()" href="{{ route('news.index') }}">News</a>
+    <a onclick="closeMobileMenu()" href="{{ route('careers.index') }}">Karir</a>
+    <a onclick="closeMobileMenu()" href="{{ route('home') }}#kontak">Kontak</a>
+    <a onclick="closeMobileMenu()" href="{{ route('home') }}#produk"><i class="fas fa-search"></i> Cari Produk</a>
+  </div>
 
   <main class="detail-page">
     <section class="section">
@@ -62,5 +89,14 @@
       </div>
     </section>
   </main>
+  <script>
+    function toggleMobileMenu() {
+      document.getElementById('mobileMenu')?.classList.toggle('open');
+    }
+
+    function closeMobileMenu() {
+      document.getElementById('mobileMenu')?.classList.remove('open');
+    }
+  </script>
 </body>
 </html>

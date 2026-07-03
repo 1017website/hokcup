@@ -59,7 +59,12 @@ class HomeController extends Controller
             'features' => Feature::query()->where('is_active', true)->orderBy('sort_order')->get(),
             'about' => AboutSection::query()->first(),
             'aboutStats' => AboutStat::query()->where('is_active', true)->orderBy('sort_order')->get(),
-            'socialWidgets' => SocialWidget::query()->where('is_active', true)->orderBy('sort_order')->get(),
+            'socialWidgets' => SocialWidget::query()
+                ->where('is_active', true)
+                ->whereNotNull('embed_code')
+                ->whereRaw("TRIM(COALESCE(embed_code, '')) != ''")
+                ->orderBy('sort_order')
+                ->get(),
             'socialLinks' => SocialMediaLink::query()->where('is_active', true)->orderBy('sort_order')->get(),
             'googleMap' => GoogleMapSection::query()->where('is_active', true)->first(),
             'cta' => CtaSection::query()->first(),

@@ -3,6 +3,7 @@
   $faviconUrl = $siteSetting?->favicon_url ?: ($siteSetting?->logo_url ?? null);
   $waNumber = $siteSetting?->whatsapp_number ?? '6281234567890'; // fallback jika semua CS WhatsApp nonaktif
   $trackingBaseId = $siteSetting?->google_analytics_id ?: $siteSetting?->google_ads_id;
+  $visibleSocialWidgets = collect($socialWidgets ?? [])->filter(fn ($widget) => trim((string) ($widget->embed_code ?? '')) !== '')->values();
 @endphp
 <!DOCTYPE html>
 <html lang="id">
@@ -37,7 +38,9 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-  <script src="https://elfsightcdn.com/platform.js" async></script>
+  @if($visibleSocialWidgets->isNotEmpty())
+    <script src="https://elfsightcdn.com/platform.js" async></script>
+  @endif
   @if($trackingBaseId)
     <script async src="https://www.googletagmanager.com/gtag/js?id={{ $trackingBaseId }}"></script>
     <script>
@@ -256,25 +259,27 @@
       </section>
     @endif
 
-    <section class="section social-section" id="instagram-review">
-      <div class="container">
-        <div class="section-head">
-          <div>
-            <span class="eyebrow"><i class="fas fa-heart"></i> Social Proof</span>
-            <h2 class="title" style="margin-top:16px">Instagram &amp; Google Reviews</h2>
+    @if($visibleSocialWidgets->isNotEmpty())
+      <section class="section social-section" id="instagram-review">
+        <div class="container">
+          <div class="section-head">
+            <div>
+              <span class="eyebrow"><i class="fas fa-heart"></i> Social Proof</span>
+              <h2 class="title" style="margin-top:16px">Media Social Update</h2>
+            </div>
+          </div>
+          <div class="social-grid">
+            @foreach($visibleSocialWidgets as $widget)
+              <div class="social-widget">
+                <div class="social-widget-head"><i class="{{ $widget->icon }}"></i><h3>{{ $widget->title }}</h3></div>
+                @if($widget->description)<p>{{ $widget->description }}</p>@endif
+                {!! $widget->embed_code !!}
+              </div>
+            @endforeach
           </div>
         </div>
-        <div class="social-grid">
-          @foreach($socialWidgets as $widget)
-            <div class="social-widget">
-              <div class="social-widget-head"><i class="{{ $widget->icon }}"></i><h3>{{ $widget->title }}</h3></div>
-              <p>{{ $widget->description }}</p>
-              {!! $widget->embed_code !!}
-            </div>
-          @endforeach
-        </div>
-      </div>
-    </section>
+      </section>
+    @endif
 
 
     {{-- Google Maps sementara disembunyikan. Aktifkan kembali dengan mengubah false menjadi true. --}}
