@@ -441,3 +441,109 @@
     border-radius: 12px;
   }
 }
+
+
+/* REVISI: Jadi Mitra HokCup */
+.partner-tile {
+  background: linear-gradient(135deg,#fff,#fff3bd);
+  border-color: var(--red);
+}
+.partner-tile .cat-icon {
+  background: linear-gradient(135deg,var(--red-dark),var(--red));
+}
+.partnership-modal .modal-box {
+  width: min(1020px, 100%);
+}
+.partnership-content {
+  display: grid;
+  grid-template-columns: .86fr 1.14fr;
+  gap: 0;
+  align-items: stretch;
+}
+.partnership-copy {
+  padding: 38px;
+  background: linear-gradient(145deg,#fff8df,#ffd95c);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.partnership-copy .modal-title {
+  margin-top: 16px;
+}
+.partner-benefits {
+  display: grid;
+  gap: 10px;
+  margin-top: 24px;
+}
+.partner-benefits span {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(255,255,255,.76);
+  border: 1px solid rgba(240,222,209,.9);
+  border-radius: 18px;
+  padding: 12px 14px;
+  color: #5f3d37;
+  font-size: 13px;
+  font-weight: 900;
+}
+.partner-benefits i {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: var(--red);
+  color: #fff;
+  font-size: 11px;
+  flex: 0 0 auto;
+}
+.partnership-form {
+  padding: 38px;
+  display: grid;
+  gap: 16px;
+}
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2,minmax(0,1fr));
+  gap: 14px;
+}
+.partnership-form label {
+  display: grid;
+  gap: 8px;
+  color: #5f3d37;
+  font-size: 12px;
+  font-weight: 900;
+}
+.partnership-form input,
+.partnership-form select,
+.partnership-form textarea {
+  width: 100%;
+  border: 1px solid var(--line);
+  background: #fff9ed;
+  border-radius: 16px;
+  padding: 13px 14px;
+  outline: none;
+  color: var(--dark);
+  font-weight: 800;
+  resize: vertical;
+}
+.partnership-form input:focus,
+.partnership-form select:focus,
+.partnership-form textarea:focus {
+  border-color: var(--red);
+  box-shadow: 0 0 0 4px rgba(215,25,32,.08);
+}
+.partner-submit {
+  width: 100%;
+  padding: 15px 20px;
+}
+@media(max-width:880px){
+  .partnership-content { grid-template-columns: 1fr; }
+  .partnership-copy,.partnership-form { padding: 28px; }
+}
+@media(max-width:680px){
+  .form-grid { grid-template-columns: 1fr; }
+  .partnership-copy,.partnership-form { padding: 24px; }
+  .partner-benefits span { align-items: flex-start; }
+}

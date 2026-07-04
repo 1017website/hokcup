@@ -7,6 +7,7 @@ use App\Models\Category;
 use App\Models\Feature;
 use App\Models\GoogleMapSection;
 use App\Models\Product;
+use App\Models\PartnershipInquiry;
 use App\Models\SiteSetting;
 use App\Models\SocialMediaLink;
 use App\Models\SocialWidget;
@@ -35,6 +36,8 @@ class DashboardController extends Controller
             'whatsappCsCount' => WhatsappCustomerService::count(),
             'activeWhatsappCsCount' => WhatsappCustomerService::where('is_active', true)->count(),
             'whatsappClickCount' => WhatsappCustomerService::sum('total_clicks'),
+            'partnershipInquiryCount' => PartnershipInquiry::count(),
+            'newPartnershipInquiryCount' => PartnershipInquiry::where('status', PartnershipInquiry::STATUS_NEW)->count(),
             'googleMapIsActive' => (bool) optional($googleMap)->is_active,
             'totalVisitors' => VisitorLog::distinct('visitor_hash')->count('visitor_hash'),
             'totalViews' => VisitorLog::count(),

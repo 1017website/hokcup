@@ -102,7 +102,7 @@ class HokCupSeeder extends Seeder
             ['square','Square Series','Square','fa-square','Cup square modern'],
             ['printing','Printing & Motif','Printing','fa-palette','Cup motif siap jual'],
             ['lid','Lid & Seal','Lid','fa-circle','Tutup cup dan seal'],
-            ['grosir','Paket Grosir','Grosir','fa-boxes-stacked','Paket reseller/outlet'],
+            ['grosir','Jadi Mitra HokCup','Mitra','fa-handshake','Daftar reseller/outlet'],
         ];
         foreach ($categories as $i => $category) {
             Category::updateOrCreate(['slug' => $category[0]], [

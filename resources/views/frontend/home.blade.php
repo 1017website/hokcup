@@ -68,7 +68,7 @@
     </script>
   @endif
   {!! $siteSetting?->head_scripts !!}
-  <link rel="stylesheet" href="{{ asset('hokcup/css/frontend.css') }}?v=16">
+  <link rel="stylesheet" href="{{ asset('hokcup/css/frontend.css') }}?v=17">
 </head>
 <body>
   @if($siteSetting?->google_tag_manager_id)
@@ -143,7 +143,7 @@
     <div class="marquee">
       <div class="marquee-track">
         @foreach($categories->concat($categories) as $category)
-          <span><i class="fas fa-star"></i> {{ $category->name }}</span>
+          <span><i class="fas fa-star"></i> {{ $category->slug === 'grosir' ? 'Jadi Mitra HokCup' : $category->name }}</span>
         @endforeach
       </div>
     </div>
@@ -192,7 +192,7 @@
           <div class="empty-state" id="emptyState">
             <i class="fas fa-box-open"></i>
             <strong>Produk tidak ditemukan</strong>
-            <p>Coba gunakan kata kunci lain seperti 12oz, oval, square, lid, atau grosir.</p>
+            <p>Coba gunakan kata kunci lain seperti 12oz, oval, square, lid, atau kategori lainnya.</p>
           </div>
         </div>
       </div>
@@ -379,28 +379,101 @@
     </div>
   </div>
 
+  <div class="modal partnership-modal" id="partnershipModal" onclick="closePartnershipBackdrop(event)">
+    <div class="modal-box partnership-box">
+      <button class="modal-close" onclick="closePartnershipForm()" aria-label="Tutup form mitra"><i class="fas fa-times"></i></button>
+      <div class="partnership-content">
+        <div class="partnership-copy">
+          <span class="modal-cat"><i class="fas fa-handshake"></i> Kemitraan</span>
+          <h3 class="modal-title">Jadi Mitra HokCup</h3>
+          <p class="modal-desc">Isi data singkat berikut agar tim kami bisa menghubungi Anda untuk kebutuhan reseller, outlet, distributor, atau pembelian rutin.</p>
+          <div class="partner-benefits">
+            <span><i class="fas fa-check"></i> Konsultasi kebutuhan produk</span>
+            <span><i class="fas fa-check"></i> Harga untuk pembelian rutin</span>
+            <span><i class="fas fa-check"></i> Cocok untuk outlet, reseller, dan event</span>
+          </div>
+        </div>
+        <form class="partnership-form" action="{{ route('partnership.store') }}" method="POST" onsubmit="submitPartnershipForm(event)">
+          @csrf
+          <input type="hidden" name="source_url" value="{{ request()->fullUrl() }}">
+          <div class="form-grid">
+            <label>Nama Lengkap
+              <input name="name" type="text" placeholder="Nama Anda" required>
+            </label>
+            <label>Nama Usaha / Brand
+              <input name="business" type="text" placeholder="Contoh: Kedai Kopi Rasa" required>
+            </label>
+            <label>Nomor WhatsApp
+              <input name="phone" type="tel" placeholder="08xxxxxxxxxx" required>
+            </label>
+            <label>Kota / Domisili
+              <input name="city" type="text" placeholder="Contoh: Surabaya" required>
+            </label>
+            <label>Jenis Mitra
+              <select name="type" required>
+                <option value="">Pilih jenis mitra</option>
+                <option value="Reseller">Reseller</option>
+                <option value="Outlet minuman / F&B">Outlet minuman / F&B</option>
+                <option value="Distributor">Distributor</option>
+                <option value="Event / catering">Event / catering</option>
+                <option value="Lainnya">Lainnya</option>
+              </select>
+            </label>
+            <label>Estimasi Kebutuhan
+              <select name="need" required>
+                <option value="">Pilih estimasi</option>
+                <option value="Kurang dari 1 karton / bulan">Kurang dari 1 karton / bulan</option>
+                <option value="1-5 karton / bulan">1-5 karton / bulan</option>
+                <option value="6-20 karton / bulan">6-20 karton / bulan</option>
+                <option value="Lebih dari 20 karton / bulan">Lebih dari 20 karton / bulan</option>
+              </select>
+            </label>
+          </div>
+          <label>Catatan Kebutuhan Produk
+            <textarea name="message" rows="4" placeholder="Contoh: butuh cup 12oz, lid, atau printing custom"></textarea>
+          </label>
+          <button class="btn btn-primary partner-submit" type="submit"><i class="fab fa-whatsapp"></i> Simpan & Kirim ke WhatsApp</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
   <script>
     const LOGO = @json($siteSetting?->logo_url ?? '');
     const WA_REDIRECT_URL = @json(route('whatsapp.redirect'));
     const SITE_NAME = @json($siteName);
     const categories = @json($frontendCategories);
     const products = @json($frontendProducts);
+    const PARTNERSHIP_CATEGORY_ID = 'grosir';
 
     let currentCategory = 'all';
     let currentPage = 1;
     const productsPerPage = 6;
 
+    function isPartnershipCategory(id){
+      return id === PARTNERSHIP_CATEGORY_ID;
+    }
     function getCategoryName(id){
+      if(isPartnershipCategory(id)) return 'Jadi Mitra HokCup';
       const cat = categories.find(c => c.id === id);
       return cat ? cat.name : 'Kategori';
     }
     function getCategoryShort(id){
+      if(isPartnershipCategory(id)) return 'Mitra';
       const cat = categories.find(c => c.id === id);
       return cat ? cat.short : 'Produk';
     }
+    function getCategoryDesc(cat){
+      if(isPartnershipCategory(cat.id)) return 'Daftar reseller/outlet';
+      return cat.desc;
+    }
+    function catalogProducts(){
+      return products.filter(p => !isPartnershipCategory(p.category));
+    }
     function countByCat(id){
-      if(id === 'all') return products.length;
-      return products.filter(p => p.category === id).length;
+      if(id === 'all') return catalogProducts().length;
+      if(isPartnershipCategory(id)) return 0;
+      return catalogProducts().filter(p => p.category === id).length;
     }
     function setCategory(id){
       currentCategory = id;
@@ -412,21 +485,34 @@
     }
     function renderCategories(){
       const wrap = document.getElementById('categoryTiles');
-      wrap.innerHTML = categories.filter(c => c.id !== 'all').map(cat => `
-        <div class="cat-tile ${currentCategory === cat.id ? 'active' : ''}" onclick="setCategory('${cat.id}'); document.getElementById('produk').scrollIntoView({behavior:'smooth'});">
-          <div class="cat-icon"><i class="fas ${cat.icon}"></i></div>
-          <h3>${cat.name}</h3>
-          <p>${cat.desc}<br><strong>${countByCat(cat.id)} produk</strong></p>
-        </div>
-      `).join('');
+      wrap.innerHTML = categories.filter(c => c.id !== 'all').map(cat => {
+        const isPartner = isPartnershipCategory(cat.id);
+        const clickAction = isPartner
+          ? `openPartnershipForm()`
+          : `setCategory('${cat.id}'); document.getElementById('produk').scrollIntoView({behavior:'smooth'});`;
+        const summary = isPartner
+          ? `${getCategoryDesc(cat)}<br><strong>Isi form kemitraan</strong>`
+          : `${getCategoryDesc(cat)}<br><strong>${countByCat(cat.id)} produk</strong>`;
+        return `
+          <div class="cat-tile ${isPartner ? 'partner-tile' : ''} ${currentCategory === cat.id && !isPartner ? 'active' : ''}" onclick="${clickAction}">
+            <div class="cat-icon"><i class="fas ${isPartner ? 'fa-handshake' : cat.icon}"></i></div>
+            <h3>${getCategoryName(cat.id)}</h3>
+            <p>${summary}</p>
+          </div>
+        `;
+      }).join('');
     }
     function renderFilters(){
       const list = document.getElementById('filterList');
-      list.innerHTML = categories.map(cat => `
-        <button class="filter-btn ${currentCategory === cat.id ? 'active' : ''}" onclick="setCategory('${cat.id}')">
-          <span>${cat.name}</span><span>${countByCat(cat.id)}</span>
-        </button>
-      `).join('');
+      list.innerHTML = categories.map(cat => {
+        const isPartner = isPartnershipCategory(cat.id);
+        const clickAction = isPartner ? 'openPartnershipForm()' : `setCategory('${cat.id}')`;
+        return `
+          <button class="filter-btn ${currentCategory === cat.id && !isPartner ? 'active' : ''}" onclick="${clickAction}">
+            <span>${getCategoryName(cat.id)}</span><span>${isPartner ? 'Form' : countByCat(cat.id)}</span>
+          </button>
+        `;
+      }).join('');
     }
     function renderPagination(totalItems){
       const totalPages = Math.ceil(totalItems / productsPerPage);
@@ -451,7 +537,7 @@
       if(resetPage) currentPage = 1;
       const q = document.getElementById('searchInput').value.trim().toLowerCase();
       const sort = document.getElementById('sortSelect').value;
-      let data = products.filter(p => {
+      let data = catalogProducts().filter(p => {
         const byCat = currentCategory === 'all' || p.category === currentCategory;
         const haystack = `${p.name} ${getCategoryName(p.category)} ${p.desc} ${Object.values(p.specs).join(' ')}`.toLowerCase();
         return byCat && (!q || haystack.includes(q));
@@ -528,7 +614,7 @@
     }
     function renderOverlaySearch(value){
       const q = (value || '').trim().toLowerCase();
-      const list = products.filter(p => {
+      const list = catalogProducts().filter(p => {
         const text = `${p.name} ${getCategoryName(p.category)} ${p.label} ${p.desc} ${p.size ? p.size + 'oz' : ''} ${Object.values(p.specs).join(' ')}`.toLowerCase();
         return !q || text.includes(q);
       }).slice(0, 10);
@@ -538,7 +624,7 @@
           <div class="overlay-empty">
             <i class="far fa-frown"></i>
             <strong>Tidak ada hasil</strong><br>
-            <span>Coba kata kunci lain seperti 12oz, oval, lid, atau grosir.</span>
+            <span>Coba kata kunci lain seperti 12oz, oval, square, atau lid.</span>
           </div>
         `;
         return;
@@ -580,10 +666,76 @@
       const text = `Halo ${SITE_NAME}, saya ingin bertanya produk dan katalog harga.`;
       window.open(buildWaUrl(text), '_blank');
     }
+
+    function openPartnershipForm(){
+      closeMobileMenu();
+      const modal = document.getElementById('partnershipModal');
+      modal.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+    function closePartnershipForm(){
+      document.getElementById('partnershipModal').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+    function closePartnershipBackdrop(e){
+      if(e.target.id === 'partnershipModal') closePartnershipForm();
+    }
+    async function submitPartnershipForm(e){
+      e.preventDefault();
+      const form = e.currentTarget;
+      const submitBtn = form.querySelector('.partner-submit');
+      const formData = new FormData(form);
+      const data = Object.fromEntries(formData.entries());
+      const text = [
+        `Halo ${SITE_NAME}, saya ingin menjadi Mitra HokCup.`,
+        '',
+        `Nama: ${data.name || '-'}`,
+        `Nama Usaha/Brand: ${data.business || '-'}`,
+        `No. WhatsApp: ${data.phone || '-'}`,
+        `Kota/Domisili: ${data.city || '-'}`,
+        `Jenis Mitra: ${data.type || '-'}`,
+        `Estimasi Kebutuhan: ${data.need || '-'}`,
+        `Catatan: ${data.message || '-'}`,
+      ].join('\n');
+
+      const whatsappTab = window.open('', '_blank');
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Menyimpan...';
+
+      try {
+        const response = await fetch(form.action, {
+          method: 'POST',
+          headers: {
+            'Accept': 'application/json',
+            'X-Requested-With': 'XMLHttpRequest',
+          },
+          body: formData,
+        });
+
+        if(!response.ok){
+          throw new Error('Gagal menyimpan data mitra.');
+        }
+
+        if(whatsappTab){
+          whatsappTab.location.href = buildWaUrl(text);
+        } else {
+          window.open(buildWaUrl(text), '_blank');
+        }
+
+        closePartnershipForm();
+        form.reset();
+      } catch (error) {
+        if(whatsappTab) whatsappTab.close();
+        alert('Maaf, data mitra belum berhasil tersimpan. Silakan coba lagi.');
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = '<i class="fab fa-whatsapp"></i> Simpan & Kirim ke WhatsApp';
+      }
+    }
     function toggleMobileMenu(){document.getElementById('mobileMenu').classList.toggle('open')}
     function closeMobileMenu(){document.getElementById('mobileMenu').classList.remove('open')}
     document.addEventListener('keydown', e => {
-      if(e.key === 'Escape'){ closeSearch(); closeModal(); closeMobileMenu(); }
+      if(e.key === 'Escape'){ closeSearch(); closeModal(); closePartnershipForm(); closeMobileMenu(); }
       if((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k'){ e.preventDefault(); openSearch(); }
     });
     document.getElementById('searchOverlay').addEventListener('click', e => { if(e.target.id === 'searchOverlay') closeSearch(); });

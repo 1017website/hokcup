@@ -10,7 +10,7 @@
   <div class="stat-card"><i class="fas fa-users"></i><strong>{{ number_format($totalVisitors) }}</strong><span>Total Pengunjung</span></div>
   <div class="stat-card"><i class="fas fa-eye"></i><strong>{{ number_format($totalViews) }}</strong><span>Total Page View</span></div>
   <div class="stat-card"><i class="fas fa-box-open"></i><strong>{{ $productCount }}</strong><span>Total Produk</span></div>
-  <div class="stat-card"><i class="fas fa-check-circle"></i><strong>{{ $activeProductCount }}</strong><span>Produk Aktif</span></div>
+  <div class="stat-card"><i class="fas fa-handshake"></i><strong>{{ number_format($newPartnershipInquiryCount) }}</strong><span>Lead Mitra Baru</span></div>
 </div>
 
 <div class="stat-grid stat-grid-4">
@@ -61,6 +61,7 @@
       <div class="status-item"><strong>Social Proof Widget</strong><span class="pill pill-green">{{ $socialWidgetCount }} Widget</span></div>
       <div class="status-item"><strong>Keunggulan</strong><span class="pill pill-green">{{ $featureCount }} Item</span></div>
       <div class="status-item"><strong>CS WhatsApp</strong><span class="pill {{ $activeWhatsappCsCount > 0 ? 'pill-green' : 'pill-red' }}">{{ $activeWhatsappCsCount }} Aktif</span></div>
+      <div class="status-item"><strong>Data Mitra</strong><span class="pill {{ $newPartnershipInquiryCount > 0 ? 'pill-red' : 'pill-green' }}">{{ number_format($partnershipInquiryCount) }} Lead</span></div>
       <div class="status-item"><strong>User CMS</strong><span class="pill pill-green">{{ $userCount }} User</span></div>
       <div class="status-item"><strong>Developer</strong><span class="pill pill-green">{{ $developerCount }} Akun</span></div>
     </div>
@@ -73,6 +74,7 @@
       <a class="btn btn-light" href="{{ route('admin.seo.edit') }}"><i class="fas fa-magnifying-glass-chart"></i> SEO</a>
       <a class="btn btn-light" href="{{ route('admin.products.index') }}"><i class="fas fa-box"></i> Kelola Produk</a>
       <a class="btn btn-light" href="{{ route('admin.whatsapp-cs.index') }}"><i class="fab fa-whatsapp"></i> CS WhatsApp</a>
+      <a class="btn btn-light" href="{{ route('admin.partnership-inquiries.index') }}"><i class="fas fa-handshake"></i> Data Mitra</a>
       <a class="btn btn-light" href="{{ route('admin.social-media-links.index') }}"><i class="fas fa-hashtag"></i> Sosial Media</a>
       <a class="btn btn-light" href="{{ route('admin.commands.index') }}"><i class="fas fa-terminal"></i> Artisan Command</a>
       <a class="btn btn-light" href="{{ route('admin.users.index') }}"><i class="fas fa-users-gear"></i> User CMS</a>

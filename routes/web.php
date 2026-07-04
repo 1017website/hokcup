@@ -17,6 +17,7 @@ use App\Http\Controllers\Admin\SocialMediaLinkController;
 use App\Http\Controllers\Admin\SocialWidgetController;
 use App\Http\Controllers\Admin\VisitorAnalyticsController;
 use App\Http\Controllers\Admin\MaintenanceCommandController;
+use App\Http\Controllers\Admin\PartnershipInquiryController as AdminPartnershipInquiryController;
 use App\Http\Controllers\Admin\NewsArticleController;
 use App\Http\Controllers\Admin\ProfilePasswordController;
 use App\Http\Controllers\Admin\UserController;
@@ -24,6 +25,7 @@ use App\Http\Controllers\Admin\WhatsappCustomerServiceController;
 use App\Http\Controllers\Auth\AdminLoginController;
 use App\Http\Controllers\Frontend\ContentController;
 use App\Http\Controllers\Frontend\HomeController;
+use App\Http\Controllers\Frontend\PartnershipInquiryController;
 use App\Http\Controllers\Frontend\WhatsappRedirectController;
 use Illuminate\Support\Facades\Route;
 
@@ -33,6 +35,7 @@ Route::get('/news', [ContentController::class, 'newsIndex'])->name('news.index')
 Route::get('/news/{newsArticle:slug}', [ContentController::class, 'news'])->name('news.show');
 Route::get('/karir', [ContentController::class, 'careersIndex'])->name('careers.index');
 Route::get('/karir/{careerPosition:slug}', [ContentController::class, 'career'])->name('careers.show');
+Route::post('/jadi-mitra', [PartnershipInquiryController::class, 'store'])->name('partnership.store');
 
 Route::middleware('guest')->group(function () {
     Route::get('/admin/login', [AdminLoginController::class, 'showLoginForm'])->name('login');
@@ -46,6 +49,7 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function () {
     Route::get('/site-settings', [SiteSettingController::class, 'edit'])->name('site-settings.edit');
     Route::put('/site-settings', [SiteSettingController::class, 'update'])->name('site-settings.update');
     Route::get('/whatsapp-cs', [WhatsappCustomerServiceController::class, 'index'])->name('whatsapp-cs.index');
+    Route::resource('partnership-inquiries', AdminPartnershipInquiryController::class)->parameters(['partnership-inquiries' => 'partnershipInquiry'])->only(['index', 'show', 'update', 'destroy']);
     Route::post('/whatsapp-cs', [WhatsappCustomerServiceController::class, 'store'])->name('whatsapp-cs.store');
     Route::put('/whatsapp-cs/{whatsappCs}', [WhatsappCustomerServiceController::class, 'update'])->name('whatsapp-cs.update');
     Route::delete('/whatsapp-cs/{whatsappCs}', [WhatsappCustomerServiceController::class, 'destroy'])->name('whatsapp-cs.destroy');

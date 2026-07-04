@@ -17,7 +17,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Outfit:wght@600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-  <link rel="stylesheet" href="{{ asset('hokcup/css/admin.css') }}?v=16">
+  <link rel="stylesheet" href="{{ asset('hokcup/css/admin.css') }}?v=17">
 </head>
 <body>
 @php
@@ -57,6 +57,7 @@
       <a class="side-link @if(request()->routeIs('admin.seo.*')) active @endif" href="{{ route('admin.seo.edit') }}"><i class="fas fa-magnifying-glass-chart"></i> SEO</a>
       <a class="side-link @if(request()->routeIs('admin.site-settings.*')) active @endif" href="{{ route('admin.site-settings.edit') }}"><i class="fas fa-gear"></i> Site Setting & WA</a>
       <a class="side-link @if(request()->routeIs('admin.whatsapp-cs.*')) active @endif" href="{{ route('admin.whatsapp-cs.index') }}"><i class="fab fa-whatsapp"></i> CS WhatsApp</a>
+      <a class="side-link @if(request()->routeIs('admin.partnership-inquiries.*')) active @endif" href="{{ route('admin.partnership-inquiries.index') }}"><i class="fas fa-handshake"></i> Data Mitra</a>
       <a class="side-link @if(request()->routeIs('admin.commands.*')) active @endif" href="{{ route('admin.commands.index') }}"><i class="fas fa-terminal"></i> Artisan Command</a>
 
       <div class="nav-title">Akses CMS</div>
